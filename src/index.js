@@ -1,3 +1,5 @@
+const Phaser = require("phaser");
+
 const config = {
   type: Phaser.AUTO,
   width: 800,
@@ -28,6 +30,8 @@ function preload() {
     frameHeight: 48
   });
 }
+
+let platforms;
 
 function create() {
   this.add.image(400, 300, "sky");
