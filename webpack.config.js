@@ -1,5 +1,5 @@
 const path = require("path");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -8,12 +8,12 @@ module.exports = {
     filename: "app.js",
     path: path.resolve(__dirname, "dist")
   },
-  plugins: [new CleanWebpackPlugin(["dist"]), new HtmlWebpackPlugin()],
+  plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin()],
   module: {
     rules: [
       {
         test: /\.m?js$/,
-        excludes: /(node_modules|bower_components)/,
+        exclude: /(node_modules|bower_components)/,
         use: {
           loader: "babel-loader",
           options: {
