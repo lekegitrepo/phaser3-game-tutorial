@@ -1,51 +1,49 @@
 const Phaser = require("phaser");
 
 const config = {
-  type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  physics: {
-    default: "arcade",
-    arcade: {
-      gravity: { y: 300 },
-      debug: false
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300 },
+            debug: false
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update
     }
-  },
-  scene: {
-    preload,
-    create,
-    update
-  }
 };
 
-const game = new Phaser.Game(config);
+let player;
+let platforms;
+let cursors;
 
-function preload() {
-  this.load.image("sky", "assets/sky.png");
-  this.load.image("ground", "assets/platform.png");
-  this.load.image("star", "assets/star.png");
-  this.load.image("bomb", "assets/bomb.png");
-  this.load.spritesheet("dude", "assets/dude.png", {
-    frameWidth: 32,
-    frameHeight: 48
-  });
+new Phaser.Game(config);
+
+function preload ()
+{
+    this.load.image('sky', 'assets/sky.png');
+    this.load.image('ground', 'assets/platform.png');
+    this.load.image('star', 'assets/star.png');
+    this.load.image('bomb', 'assets/bomb.png');
+    this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
-let platforms;
+function create ()
+{
+  this.add.image(400, 300, 'sky');
 
-function create() {
-  this.add.image(400, 300, "sky");
   platforms = this.physics.add.staticGroup();
-  platforms
-    .create(400, 568, "ground")
-    .setScale(2)
-    .refreshBody();
 
-  platforms.create(400, 300, "ground");
+  platforms.create(400, 568, 'ground').setScale(2).refreshBody();
 
-  platforms.create(600, 400, "ground");
-  platforms.create(50, 250, "ground");
-  platforms.create(750, 220, "ground");
+  platforms.create(600, 400, 'ground');
+  platforms.create(50, 250, 'ground');
+  platforms.create(750, 220, 'ground');
 
   player = this.physics.add.sprite(100, 450, 'dude');
 
@@ -71,10 +69,14 @@ function create() {
       frameRate: 10,
       repeat: -1
   });
+
+  cursors = this.input.keyboard.createCursorKeys();
+
   this.physics.add.collider(player, platforms);
 }
 
-function update() {
+function update ()
+{
   if (cursors.left.isDown)
   {
       player.setVelocityX(-160);
