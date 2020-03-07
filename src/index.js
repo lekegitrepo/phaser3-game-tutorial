@@ -71,6 +71,7 @@ function create() {
       frameRate: 10,
       repeat: -1
   });
+  this.physics.add.collider(player, platforms);
 }
 
 function update() {}
