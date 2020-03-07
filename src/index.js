@@ -41,6 +41,8 @@ function create() {
     .setScale(2)
     .refreshBody();
 
+  platforms.create(400, 300, "ground");
+
   platforms.create(600, 400, "ground");
   platforms.create(50, 250, "ground");
   platforms.create(750, 220, "ground");
